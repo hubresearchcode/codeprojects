@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Help - Statewide Health Literacy Hub</title>
+  <meta name="description" content="Help guides for the Statewide Health Literacy Hub. Choose Events or Community to get started.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Source+Serif+4:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
@@ -15,13 +16,14 @@
       --warm-gray: #E8ECF1;
       --text-dark: #1A1E2C;
       --text-body: #3D4356;
-      --text-muted: #6B7188;
-      --accent-teal: #2E8B8B;
-      --accent-coral: #D4614B;
-      --accent-gold: #D4A843;
+      --text-muted: #5A607A;
+      --accent-teal: #1F6B6B;
+      --accent-coral: #A8442F;
+      --accent-gold: #8A6A15;
       --border: #D4D9E3;
+      --focus-ring: #FFB81C;
       --card-shadow: 0 2px 12px rgba(0, 38, 100, 0.06);
-      --card-shadow-hover: 0 6px 24px rgba(0, 38, 100, 0.1);
+      --card-shadow-hover: 0 8px 28px rgba(0, 38, 100, 0.12);
     }
 
     *, *::before, *::after {
@@ -38,7 +40,12 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* HEADER */
+    :focus-visible {
+      outline: 3px solid var(--focus-ring);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
     .header {
       background: var(--navy);
       color: var(--white);
@@ -57,12 +64,13 @@
       height: 500px;
       background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
       border-radius: 50%;
+      pointer-events: none;
     }
 
     .header-badge {
       display: inline-block;
       background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.35);
       border-radius: 100px;
       padding: 0.35rem 1rem;
       font-size: 0.8rem;
@@ -84,252 +92,153 @@
       font-size: 1.05rem;
       max-width: 560px;
       margin: 0 auto;
-      opacity: 0.85;
+      opacity: 0.95;
       line-height: 1.6;
     }
 
-    /* CONTAINER */
     .container {
-      max-width: 860px;
+      max-width: 980px;
       margin: 0 auto;
       padding: 2.5rem 1.5rem 4rem;
     }
 
-    /* TABLE OF CONTENTS */
-    .toc {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.75rem 2rem;
+    .intro {
+      text-align: center;
       margin-bottom: 2.5rem;
-      box-shadow: var(--card-shadow);
     }
 
-    .toc h2 {
-      font-family: 'Source Serif 4', serif;
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--text-dark);
-      margin-bottom: 1rem;
-    }
-
-    .toc-list {
-      list-style: none;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.5rem;
-    }
-
-    .toc-list a {
-      color: var(--navy);
-      text-decoration: none;
-      font-size: 0.95rem;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.4rem 0;
-      transition: color 0.2s;
-    }
-
-    .toc-list a:hover,
-    .toc-list a:focus {
-      color: var(--accent-teal);
-      text-decoration: underline;
-    }
-
-    .toc-list .toc-num {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 24px;
-      height: 24px;
-      border-radius: 6px;
-      background: var(--off-white);
-      color: var(--navy);
-      font-size: 0.75rem;
-      font-weight: 700;
-      flex-shrink: 0;
-    }
-
-    /* SECTIONS */
-    .help-section {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 2rem 2rem 2.25rem;
-      margin-bottom: 1.75rem;
-      box-shadow: var(--card-shadow);
-      transition: box-shadow 0.25s ease;
-    }
-
-    .help-section:hover {
-      box-shadow: var(--card-shadow-hover);
-    }
-
-    .section-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 0.6rem;
-      padding: 0.25rem 0.7rem;
-      border-radius: 6px;
-    }
-
-    .label-events {
-      background: #EBF5F5;
-      color: var(--accent-teal);
-    }
-
-    .label-recordings {
-      background: #FDF0ED;
-      color: var(--accent-coral);
-    }
-
-    .label-general {
-      background: #FBF5E6;
-      color: #9A7B1F;
-    }
-
-    .help-section h2 {
+    .intro h2 {
       font-family: 'Source Serif 4', serif;
       font-size: 1.4rem;
       font-weight: 700;
       color: var(--text-dark);
-      margin-bottom: 1rem;
-      line-height: 1.3;
+      margin-bottom: 0.5rem;
     }
 
-    .help-section p {
-      margin-bottom: 1rem;
-      font-size: 0.95rem;
-      line-height: 1.7;
+    .intro p {
+      font-size: 1rem;
+      max-width: 600px;
+      margin: 0 auto;
     }
 
-    .step-list {
-      list-style: none;
-      counter-reset: steps;
-      margin: 1.25rem 0;
+    .choice-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
     }
 
-    .step-list li {
-      counter-increment: steps;
-      position: relative;
-      padding-left: 2.75rem;
-      margin-bottom: 1rem;
-      font-size: 0.95rem;
-      line-height: 1.65;
+    .choice-card {
+      background: var(--white);
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem 1.75rem;
+      box-shadow: var(--card-shadow);
+      text-decoration: none;
+      color: var(--text-body);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
     }
 
-    .step-list li::before {
-      content: counter(steps);
-      position: absolute;
-      left: 0;
-      top: 0.05rem;
-      width: 28px;
-      height: 28px;
-      border-radius: 8px;
-      background: var(--off-white);
-      border: 1px solid var(--border);
-      color: var(--navy);
-      font-weight: 700;
-      font-size: 0.8rem;
+    .choice-card:hover,
+    .choice-card:focus-visible {
+      border-color: var(--navy);
+      box-shadow: var(--card-shadow-hover);
+      transform: translateY(-2px);
+    }
+
+    .choice-card .icon-circle {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      line-height: 28px;
+      margin-bottom: 0.5rem;
     }
 
-    .step-list li strong {
-      color: var(--text-dark);
-      font-weight: 600;
-    }
-
-    .tip-box {
-      background: #EBF5F5;
-      border-left: 3px solid var(--accent-teal);
-      border-radius: 0 8px 8px 0;
-      padding: 1rem 1.25rem;
-      margin: 1.25rem 0 0.5rem;
-      font-size: 0.9rem;
-      line-height: 1.6;
-    }
-
-    .tip-box strong {
+    .choice-card.events .icon-circle {
+      background: #E4F0F0;
       color: var(--accent-teal);
     }
 
-    .warning-box {
-      background: #FDF0ED;
-      border-left: 3px solid var(--accent-coral);
-      border-radius: 0 8px 8px 0;
-      padding: 1rem 1.25rem;
-      margin: 1.25rem 0 0.5rem;
-      font-size: 0.9rem;
-      line-height: 1.6;
+    .choice-card.community .icon-circle {
+      background: #FFF1D9;
+      color: var(--accent-gold);
     }
 
-    .warning-box strong {
-      color: var(--accent-coral);
+    .choice-card .icon-circle svg {
+      width: 28px;
+      height: 28px;
     }
 
-    .screenshot-figure {
-      margin: 1.5rem 0;
+    .choice-card h3 {
+      font-family: 'Source Serif 4', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.25;
+    }
+
+    .choice-card p {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--text-body);
+    }
+
+    .choice-list {
+      list-style: none;
+      margin-top: 0.25rem;
       padding: 0;
     }
 
-    .screenshot-figure img {
-      display: block;
-      width: 100%;
-      max-width: 700px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      box-shadow: var(--card-shadow);
+    .choice-list li {
+      font-size: 0.9rem;
+      padding: 0.4rem 0 0.4rem 1.5rem;
+      position: relative;
+      color: var(--text-body);
     }
 
-    .screenshot-figure figcaption {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-top: 0.5rem;
-      line-height: 1.5;
+    .choice-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.85rem;
+      width: 14px;
+      height: 2px;
+      background: var(--navy);
+      border-radius: 2px;
     }
 
-    .cta-link {
+    .choice-card .go-link {
+      margin-top: auto;
+      padding-top: 1rem;
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      background: var(--navy);
-      color: var(--white);
-      text-decoration: none;
-      font-size: 0.9rem;
+      color: var(--navy);
       font-weight: 600;
-      padding: 0.6rem 1.25rem;
-      border-radius: 8px;
-      margin-top: 0.75rem;
-      transition: background 0.2s;
+      font-size: 0.95rem;
     }
 
-    .cta-link:hover,
-    .cta-link:focus {
-      background: var(--navy-light);
-    }
-
-    .cta-link svg {
+    .choice-card .go-link svg {
       width: 16px;
       height: 16px;
+      transition: transform 0.2s ease;
     }
 
-    /* CONTACT SECTION */
+    .choice-card:hover .go-link svg,
+    .choice-card:focus-visible .go-link svg {
+      transform: translateX(4px);
+    }
+
     .contact-card {
       background: var(--navy);
       color: var(--white);
       border-radius: 12px;
-      padding: 2rem 2rem;
+      padding: 2rem;
       text-align: center;
       margin-top: 1rem;
     }
@@ -342,7 +251,7 @@
     }
 
     .contact-card p {
-      opacity: 0.85;
+      opacity: 0.95;
       font-size: 0.95rem;
       margin-bottom: 1rem;
     }
@@ -351,29 +260,13 @@
       color: var(--white);
       text-decoration: underline;
       text-underline-offset: 3px;
+      font-weight: 600;
     }
 
     .contact-card a:hover {
-      opacity: 0.8;
+      opacity: 0.85;
     }
 
-    /* RESPONSIVE */
-    @media (max-width: 600px) {
-      .header {
-        padding: 2rem 1.25rem 2.5rem;
-      }
-      .container {
-        padding: 1.5rem 1rem 3rem;
-      }
-      .help-section {
-        padding: 1.5rem 1.25rem;
-      }
-      .toc {
-        padding: 1.25rem 1.25rem;
-      }
-    }
-
-    /* SKIP LINK */
     .skip-link {
       position: absolute;
       top: -100%;
@@ -389,6 +282,18 @@
     .skip-link:focus {
       top: 0;
     }
+
+    @media (max-width: 600px) {
+      .header {
+        padding: 2rem 1.25rem 2.5rem;
+      }
+      .container {
+        padding: 1.5rem 1rem 3rem;
+      }
+      .choice-card {
+        padding: 1.5rem 1.25rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -403,123 +308,57 @@
 
 <main id="main-content" class="container">
 
-  <!-- TABLE OF CONTENTS -->
-  <nav class="toc" aria-label="Table of contents">
-    <h2>On this page</h2>
-    <ol class="toc-list">
-      <li><a href="#register-event"><span class="toc-num">1</span> Register for an event and add it to your calendar</a></li>
-      <li><a href="#join-live"><span class="toc-num">2</span> Join a live event</a></li>
-      <li><a href="#find-recordings"><span class="toc-num">3</span> Find recordings and summaries of past events</a></li>
-      <li><a href="#navigate"><span class="toc-num">4</span> Find your way around the community</a></li>
-      <li><a href="#notifications"><span class="toc-num">5</span> Manage your notifications</a></li>
-    </ol>
-  </nav>
+  <div class="intro">
+    <h2>What would you like help with?</h2>
+    <p>Pick a topic below to see step-by-step guides.</p>
+  </div>
 
-  <!-- SECTION 1: REGISTER FOR AN EVENT AND ADD TO CALENDAR -->
-  <section class="help-section" id="register-event" aria-labelledby="heading-register">
-    <div class="section-label label-events">Events</div>
-    <h2 id="heading-register">1. How to register for an event and add it to your calendar</h2>
-    <p>We run <strong>Seminars</strong>, <strong>Drop-in Sessions</strong> and other events during the year. Follow these steps to sign up and save the event to your calendar.</p>
-    <ol class="step-list">
-      <li><strong>Log in</strong> to the Hub at <a href="https://community.healthliteracyhub.org.au/" target="_blank" rel="noopener">community.healthliteracyhub.org.au</a></li>
-      <li><strong>Find the event.</strong> Go to the <a href="https://community.healthliteracyhub.org.au/events" target="_blank" rel="noopener">Events</a> page, or look in the left sidebar under "Seminar Series" or "Upcoming Drop-ins".</li>
-      <li><strong>Click on the event title</strong> to open it. You will see the date, time and what the event is about.</li>
-      <li><strong>Click "RSVP"</strong> to save your spot. The page will then show "Going" with a green tick.</li>
-      <li><strong>Click "Add to calendar".</strong> You will find this button on the right side of the page, below "Going". Click it to download a calendar invite.</li>
-    </ol>
+  <div class="choice-grid">
 
-    <figure class="screenshot-figure">
-      <img src="https://2025.healthliteracyhub.org.au/getmedia/795cc750-1c5e-47ef-81b1-c632a511b3cf/Addingtocalendar.png" alt="Screenshot showing the Add to calendar menu with options including Google Calendar, Outlook, Yahoo and other calendar applications.">
-      <figcaption>After clicking "Add to calendar", pick from Google Calendar, Outlook, Yahoo or other options.</figcaption>
-    </figure>
-  </section>
+    <a href="help-events.html" class="choice-card events" aria-label="Events help: how to register, join live, and find recordings">
+      <span class="icon-circle" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/>
+        </svg>
+      </span>
+      <h3>Events</h3>
+      <p>Find out how to register for seminars and drop-in sessions, join live events, and watch recordings of past events.</p>
+      <ul class="choice-list">
+        <li>Register and add to your calendar</li>
+        <li>Join a live event</li>
+        <li>Find recordings and summaries</li>
+      </ul>
+      <span class="go-link">
+        See event guides
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/>
+        </svg>
+      </span>
+    </a>
 
-  <!-- SECTION 2: JOIN A LIVE EVENT -->
-  <section class="help-section" id="join-live" aria-labelledby="heading-join">
-    <div class="section-label label-events">Events</div>
-    <h2 id="heading-join">2. How to join a live event after registering</h2>
-    <p>After you register for an event, there are two ways to join when it starts.</p>
-    <ol class="step-list">
-      <li><strong>Check your email.</strong> You will get a reminder email before the event with a link to join. If you cannot find it, check your spam or junk folder.</li>
-      <li><strong>Or log in to the Hub</strong> and go to the <a href="https://community.healthliteracyhub.org.au/events" target="_blank" rel="noopener">Events</a> page. When the event is live, a "Join live stream" button will show up on the right side of the event page.</li>
-      <li><strong>Click the "Join live room" or "Join live stream" button.</strong> Your browser will open the live session. All events use the built-in <strong>Live room</strong> or <strong>Live stream</strong>.</li>
-      <li><strong>Allow microphone and camera access</strong> if your browser asks. This is available for <strong>Live room</strong> events only. You can keep your camera off if you prefer.</li>
-    </ol>
-    <div class="warning-box">
-      <strong>Important:</strong> Make sure you are logged in to the Hub before you try to join. If you are not logged in, the join button may not show up. We suggest joining a few minutes early to check your connection.
-    </div>
-    <div class="tip-box">
-      <strong>Tip:</strong> All Hub events use Circle's built-in Live Rooms or Live Streams. These work best in Chrome, Edge, or Firefox on a desktop or laptop.
-    </div>
-  </section>
+    <a href="help-community.html" class="choice-card community" aria-label="Community help: how to navigate the Hub, manage notifications, and update your profile">
+      <span class="icon-circle" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/>
+        </svg>
+      </span>
+      <h3>Community</h3>
+      <p>Learn how to get around the Hub, change what notifications you get, and keep your profile up to date.</p>
+      <ul class="choice-list">
+        <li>Find your way around</li>
+        <li>Manage notifications</li>
+        <li>Update your profile</li>
+      </ul>
+      <span class="go-link">
+        See community guides
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/>
+        </svg>
+      </span>
+    </a>
 
-  <!-- SECTION 3: FIND RECORDINGS AND SESSION SUMMARIES -->
-  <section class="help-section" id="find-recordings" aria-labelledby="heading-recordings">
-    <div class="section-label label-recordings">Recordings</div>
-    <h2 id="heading-recordings">3. How to find recordings and summaries of past events</h2>
-    <p>If you missed an event or want to look back at a session, you can find recordings and summaries on the Hub.</p>
-    <ol class="step-list">
-      <li><strong>Log in</strong> to the Hub at <a href="https://community.healthliteracyhub.org.au/" target="_blank" rel="noopener">community.healthliteracyhub.org.au</a></li>
-      <li><strong>Go to the right space in the sidebar.</strong> There are two main spaces for past content:
-        <br>"<strong>Seminar Recordings</strong>" in the Seminar Series group has video recordings of past seminars.
-        <br>"<strong>Past Drop-in Sessions</strong>" in the Research Drop-in Sessions group has written summaries of past sessions (not recordings).
-      </li>
-      <li><strong>Browse or search.</strong> Past events are listed as posts. Seminar posts usually have the video, a summary, and any shared resources. Drop-in Session posts have a written summary and any resources or questions and answers.</li>
-      <li><strong>Click on a post</strong> to open it and see the content.</li>
-    </ol>
+  </div>
 
-    <p style="margin-top: 1rem;"><strong>Quick links:</strong></p>
-    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem;">
-      <a href="https://community.healthliteracyhub.org.au/c/seminars/" target="_blank" rel="noopener" class="cta-link">
-        Seminar Recordings
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
-      </a>
-      <a href="https://community.healthliteracyhub.org.au/c/past-drop-in-sessions/" target="_blank" rel="noopener" class="cta-link">
-        Past Drop-in Session Summaries
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
-      </a>
-    </div>
-
-    <div class="tip-box">
-      <strong>Tip:</strong> You can use the search bar at the top of the page to search for a specific event or topic by name.
-    </div>
-  </section>
-
-  <!-- SECTION 4: NAVIGATE THE COMMUNITY -->
-  <section class="help-section" id="navigate" aria-labelledby="heading-navigate">
-    <div class="section-label label-general">General</div>
-    <h2 id="heading-navigate">4. How to find your way around the community</h2>
-    <p>The Hub is set up with spaces and groups. Here is how to get around.</p>
-    <ol class="step-list">
-      <li><strong>The top menu</strong> gives you quick access to the main areas of the Hub:
-        <br><a href="https://community.healthliteracyhub.org.au/" target="_blank" rel="noopener"><strong>Home</strong></a> shows your feed and the latest activity.
-        <br><a href="https://community.healthliteracyhub.org.au/events" target="_blank" rel="noopener"><strong>Events</strong></a> shows all upcoming events you can register for.
-        <br><a href="https://community.healthliteracyhub.org.au/c/seminars/" target="_blank" rel="noopener"><strong>Seminar Recordings</strong></a> has recordings of past seminars you can watch.
-      </li>
-      <li><strong>The left sidebar</strong> shows all the spaces and groups you can access. Click on any space name to open it.</li>
-      <li><strong>Groups</strong> are the larger headings (like "Seminar Series", "Research Drop-in Sessions", or your network group). Each group has related spaces inside it.</li>
-      <li><strong>Event spaces</strong> (with a calendar icon) show upcoming and past events. Other spaces have posts, resources and discussions.</li>
-      <li><strong>The search bar</strong> at the top of the page lets you search for posts, events and members across all spaces.</li>
-      <li><strong>Your profile icon</strong> (top right) lets you update your profile, change your notification settings, or log out.</li>
-    </ol>
-  </section>
-
-  <!-- SECTION 5: NOTIFICATIONS -->
-  <section class="help-section" id="notifications" aria-labelledby="heading-notifications">
-    <div class="section-label label-general">General</div>
-    <h2 id="heading-notifications">5. How to manage your notifications</h2>
-    <p>You can choose which emails and in-app notifications you get from the Hub.</p>
-    <ol class="step-list">
-      <li><strong>Click your profile icon</strong> in the top right corner and go to "Notifications".</li>
-      <li><strong>Pick what you want to hear about.</strong> You can turn email notifications and in-app notifications on or off for new posts, event reminders, and comments.</li>
-      <li><strong>Change settings for a single space:</strong> Inside any space, click the check box to choose what you get notified about for that space only (for example, Replies to my comments, Likes on my comments).</li>
-    </ol>
-    <div class="tip-box">
-      <strong>Tip:</strong> We suggest keeping event reminder emails turned on so you do not miss upcoming sessions.
-    </div>
-  </section>
-
-  <!-- CONTACT -->
   <div class="contact-card">
     <h2>Still need help?</h2>
     <p>If you have a question that is not covered here, get in touch with the Hub team.</p>
