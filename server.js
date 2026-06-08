@@ -1,10 +1,11 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
-import { readdir, readFile } from 'fs/promises';
+import { readdir, readFile, writeFile, access } from 'fs/promises';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import Anthropic from '@anthropic-ai/sdk';
+import { randomUUID } from 'crypto';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -166,6 +167,60 @@ FORMAT RULES
     res.status(500).json({ error: 'Could not generate feedback.' });
   }
 });
+
+// --- Team Chat ---
+
+const CHAT_FILE = join(__dirname, 'chat-messages.json');
+
+async function loadMessages() {
+  try {
+    await access(CHAT_FILE);
+    const raw = await readFile(CHAT_FILE, 'utf-8');
+    return JSON.parse(raw);
+  } catch {
+    return [];
+  }
+}
+
+async function saveMessages(messages) {
+  await writeFile(CHAT_FILE, JSON.stringify(messages, null, 2), 'utf-8');
+}
+
+app.get('/api/chat-thread', async (req, res) => {
+  const since = req.query.since ? Number(req.query.since) : 0;
+  const messages = await loadMessages();
+  const filtered = since ? messages.filter(m => m.timestamp > since) : messages;
+  res.json(filtered);
+});
+
+app.post('/api/chat-thread', async (req, res) => {
+  const { author, text, replyTo } = req.body;
+  if (!author || !text) {
+    return res.status(400).json({ error: 'author and text are required.' });
+  }
+  const messages = await loadMessages();
+  const msg = {
+    id: randomUUID(),
+    author: author.trim(),
+    text: text.trim(),
+    timestamp: Date.now(),
+    replyTo: replyTo || null,
+  };
+  messages.push(msg);
+  await saveMessages(messages);
+  res.status(201).json(msg);
+});
+
+app.delete('/api/chat-thread/:id', async (req, res) => {
+  const messages = await loadMessages();
+  const idx = messages.findIndex(m => m.id === req.params.id);
+  if (idx === -1) return res.status(404).json({ error: 'Message not found.' });
+  messages.splice(idx, 1);
+  await saveMessages(messages);
+  res.json({ ok: true });
+});
+
+app.use('/chat', express.static(join(__dirname, 'public', 'chat')));
 
 // Catch-all for production SPA routing
 if (process.env.NODE_ENV === 'production') {
