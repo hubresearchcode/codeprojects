@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { Upload, BookOpen, Lock, ChevronRight, CheckCircle2, Brain, ArrowRight, Plus, FileText, X, Loader2, Key, AlertCircle } from "lucide-react";
+import { Upload, BookOpen, Lock, ChevronRight, CheckCircle2, Brain, ArrowRight, Plus, FileText, X, Loader2, AlertCircle } from "lucide-react";
 import { extractTextFromPdf } from "../lib/extractPdf";
 import { generateModuleFromText, type GeneratedModule } from "../lib/generateModule";
 
@@ -31,8 +31,8 @@ const card: React.CSSProperties = {
 type UploadStage = "idle" | "extracting" | "generating" | "done" | "error";
 
 const STAGES: Record<string, string> = {
-  extracting: "Extracting text from PDF…",
-  generating: "Generating flashcards, quizzes & sections with AI…",
+  extracting: "Extracting text from PDF...",
+  generating: "Building sections, flashcards & quizzes...",
 };
 
 export function HomePage({ modules, onOpenModule, onModuleUploaded }: HomePageProps) {
@@ -40,8 +40,6 @@ export function HomePage({ modules, onOpenModule, onModuleUploaded }: HomePagePr
   const [stage, setStage] = useState<UploadStage>("idle");
   const [file, setFile] = useState<File | null>(null);
   const [weekTitle, setWeekTitle] = useState("");
-  const [apiKey, setApiKey] = useState("");
-  const [showKey, setShowKey] = useState(false);
   const [dragOver, setDragOver] = useState(false);
   const [error, setError] = useState("");
   const [generatedContent, setGeneratedContent] = useState<GeneratedModule | null>(null);
@@ -70,10 +68,6 @@ export function HomePage({ modules, onOpenModule, onModuleUploaded }: HomePagePr
 
   async function handleProcess() {
     if (!file) return;
-    if (!apiKey.trim()) {
-      setError("A Gemini API key is required to generate content from your PDF.");
-      return;
-    }
     setError("");
 
     try {
@@ -81,12 +75,12 @@ export function HomePage({ modules, onOpenModule, onModuleUploaded }: HomePagePr
       const text = await extractTextFromPdf(file);
 
       setStage("generating");
-      const content = await generateModuleFromText(text, apiKey.trim());
+      const content = await generateModuleFromText(text);
       setGeneratedContent(content);
       setStage("done");
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
-      setError(msg.includes("API key") || msg.includes("auth") || msg.includes("API_KEY_INVALID") ? "Invalid API key. Check your Gemini key and try again." : `Failed: ${msg}`);
+      setError(`Failed to process file: ${msg}`);
       setStage("error");
     }
   }
@@ -100,10 +94,9 @@ export function HomePage({ modules, onOpenModule, onModuleUploaded }: HomePagePr
     setFile(null);
     setWeekTitle("");
     setGeneratedContent(null);
-    setApiKey("");
   }
 
-  const canProcess = !!file && !!apiKey.trim() && stage === "idle";
+  const canProcess = !!file && stage === "idle";
   const isProcessing = stage === "extracting" || stage === "generating";
 
   return (
@@ -133,7 +126,7 @@ export function HomePage({ modules, onOpenModule, onModuleUploaded }: HomePagePr
             Weekly Learning Modules
           </h1>
           <p style={{ fontSize: "14px", color: "#7A7068", maxWidth: "500px", lineHeight: 1.7 }}>
-            Upload any PDF — lecture slides, readings, or notes — and LearnPath uses AI to build an interactive study module with flashcards, quizzes, and a spaced review schedule.
+            Upload any PDF -- lecture slides, readings, or notes -- and LearnPath builds an interactive study module with flashcards, quizzes, and a spaced review schedule. All processing happens locally in your browser.
           </p>
         </div>
 
@@ -224,7 +217,7 @@ export function HomePage({ modules, onOpenModule, onModuleUploaded }: HomePagePr
                     Upload Content
                   </h2>
                   <p style={{ fontSize: "13px", color: "#8A7F72" }} className="mb-5">
-                    Your PDF will be read and sent to Claude AI to extract sections, flashcards, and quiz questions.
+                    Your PDF will be processed locally to extract sections, flashcards, and quiz questions. No data leaves your browser.
                   </p>
 
                   {/* Week title */}
@@ -233,29 +226,6 @@ export function HomePage({ modules, onOpenModule, onModuleUploaded }: HomePagePr
                     className="w-full px-4 py-2.5 rounded-xl outline-none mb-4"
                     style={{ fontSize: "14px", background: "#F8F4EE", border: "1px solid rgba(156,132,102,0.18)", color: "#2D2820" }}
                     placeholder="e.g. Week 2: Memory Consolidation" />
-
-                  {/* API key */}
-                  <label style={{ fontSize: "12px", fontWeight: 500, color: "#5C5249" }} className="block mb-1 flex items-center gap-1.5">
-                    <Key size={12} color="#8A7F72" /> Google Gemini API key <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "10px", color: "#7A9A6A", background: "rgba(122,154,106,0.1)", padding: "1px 6px", borderRadius: "5px", marginLeft: "4px" }}>Free</span>
-                  </label>
-                  <div className="relative mb-1">
-                    <input
-                      type={showKey ? "text" : "password"}
-                      value={apiKey}
-                      onChange={(e) => setApiKey(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-xl outline-none"
-                      style={{ fontSize: "13px", fontFamily: "'JetBrains Mono', monospace", background: "#F8F4EE", border: "1px solid rgba(156,132,102,0.18)", color: "#2D2820", paddingRight: "48px" }}
-                      placeholder="AIza…"
-                    />
-                    <button type="button" onClick={() => setShowKey(!showKey)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 hover:opacity-60 transition"
-                      style={{ fontSize: "11px", color: "#8A7F72" }}>
-                      {showKey ? "hide" : "show"}
-                    </button>
-                  </div>
-                  <p style={{ fontSize: "11px", color: "#8A7F72", lineHeight: 1.5 }} className="mb-5">
-                    Free tier — no credit card needed. Get a key at <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noreferrer" style={{ color: "#C8873A" }}>aistudio.google.com</a>. Used only in-browser, never stored.
-                  </p>
 
                   {/* Drop zone */}
                   <div
@@ -310,13 +280,13 @@ export function HomePage({ modules, onOpenModule, onModuleUploaded }: HomePagePr
                       {STAGES[stage]}
                     </div>
                     <div style={{ fontSize: "12px", color: "#8A7F72", marginTop: "6px" }}>
-                      {stage === "extracting" ? `Reading ${file?.name}` : "This takes about 15–30 seconds…"}
+                      {stage === "extracting" ? `Reading ${file?.name}` : "Processing your content..."}
                     </div>
                   </div>
                   <div className="w-full flex flex-col gap-2 mt-2">
                     {[
                       { key: "extracting", label: "Extract text from PDF" },
-                      { key: "generating", label: "Generate sections, flashcards & quiz with AI" },
+                      { key: "generating", label: "Build sections, flashcards & quiz" },
                       { key: "done", label: "Build spaced review schedule" },
                     ].map((s, i) => {
                       const stageOrder = ["extracting", "generating", "done"];
